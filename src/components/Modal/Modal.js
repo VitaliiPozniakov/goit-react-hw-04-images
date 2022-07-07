@@ -1,49 +1,40 @@
-import { Component } from 'react';
+import { useEffect } from 'react';
 import { createPortal } from 'react-dom';
 import { Overlay, Content, IconClose } from './Modal.styled';
 import PropTypes from 'prop-types';
-// import { AiFillCloseCircle } from "react-icons/ai";
 
 const modalRoot = document.querySelector('#modal-root');
 
-export default class Modal extends Component {
-  static propTypes = {
-    onClose: PropTypes.func,
-  };
+function Modal({ onClose, children }) {
+  useEffect(() => {
+    const handleKeyDown = e => {
+      if (e.code === 'Escape') {
+        onClose();
+      }
+    };
 
-  componentDidMount() {
-    window.addEventListener(`keydown`, this.handleKeyDown);
-  }
+    window.addEventListener(`keydown`, handleKeyDown);
 
-  componentWillUnmount() {
-    window.removeEventListener(`keydown`, this.handleKeyDown);
-  }
+    return () => window.removeEventListener(`keydown`, handleKeyDown);
+  }, [onClose]);
 
-  handleKeyDown = e => {
-    if (e.code === 'Escape') {
-      //   console.log('нажали єскейп');
-      this.props.onClose();
-    }
-  };
-
-  handleBackdropClick = e => {
+  const handleBackdropClick = e => {
     if (e.currentTarget === e.target) {
-      //   console.log('нажали backdrop');
-      this.props.onClose();
+      onClose();
     }
   };
 
-  handleIconCloseClick = e => {
-    this.props.onClose();
-  };
-
-  render() {
-    return createPortal(
-      <Overlay onClick={this.handleBackdropClick}>
-        <IconClose onClick={this.handleIconCloseClick} />
-        <Content>{this.props.children}</Content>
-      </Overlay>,
-      modalRoot
-    );
-  }
+  return createPortal(
+    <Overlay onClick={handleBackdropClick}>
+      <IconClose onClick={onClose} />
+      <Content>{children}</Content>
+    </Overlay>,
+    modalRoot
+  );
 }
+
+export default Modal;
+
+Modal.prototype = {
+  onClose: PropTypes.func,
+};
