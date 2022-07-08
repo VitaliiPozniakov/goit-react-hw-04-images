@@ -85,7 +85,7 @@ export default function App() {
         />
       )}
       {isLoading && <Loader />}
-      {images && images.length < totalImages && (
+      {images && images.length < totalImages && !isLoading && (
         <BtnLoadMore type="button" onClick={handleBtnLoadMore}>
           Load more
         </BtnLoadMore>
