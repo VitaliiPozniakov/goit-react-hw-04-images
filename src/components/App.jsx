@@ -76,6 +76,7 @@ export default function App() {
 
   return (
     <div>
+      {error && <h1>Ups, something go wrong (: Please, try again...</h1>}
       <Searchbar onSubmitProp={getSearchRequest} />
       {images && (
         <ImageGallery
