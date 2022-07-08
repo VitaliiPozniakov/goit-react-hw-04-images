@@ -34,8 +34,6 @@ export default function App() {
        description: hit.tags,
      }));
  
-     console.log(imagesArray);
- 
      if (page === 1) {
        setImages(imagesArray);
        setTotalImages(dataFromBackend.totalHits);
