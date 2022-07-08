@@ -5,7 +5,6 @@ import ctx from '../Context/authContext';
 
 const ImageGalleryItem = () => {
   const { getIdOfChooseImage, toggleModal, images } = useContext(ctx);
-  console.log(images);
 
   const handleImageClick = idOfChooseImg => {
     getIdOfChooseImage(idOfChooseImg);
