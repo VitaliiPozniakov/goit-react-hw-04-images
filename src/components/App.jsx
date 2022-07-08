@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
 import Searchbar from './Searchbar';
 import { fetchImages } from 'services/api';
-import { ToastContainer } from 'react-toastify';
+import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import ImageGallery from './ImageGallery';
 import Modal from './Modal';
@@ -34,6 +34,10 @@ export default function App() {
         largeImageUrl: hit.largeImageURL,
         description: hit.tags,
       }));
+
+      if (imagesArray.length < 1) {
+        return  toast.info('No images were found for your query :( Please try another query.');
+      }
 
       if (page === 1) {
         setImages(imagesArray);
