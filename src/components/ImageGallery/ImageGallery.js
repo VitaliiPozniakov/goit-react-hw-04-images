@@ -3,18 +3,10 @@ import { List } from './ImageGallery.styled';
 import PropTypes from 'prop-types';
 import ImageGalleryItem from '../ImageGalleryItem';
 
-const ImageGallery = ({
-  images,
-  onImageClickChooseId,
-  onImageClickOpenModal,
-}) => {
+const ImageGallery = () => {
   return (
     <List>
-      <ImageGalleryItem
-        images={images}
-        onImageClickChooseId={onImageClickChooseId}
-        onImageClickOpenModal={onImageClickOpenModal}
-      />
+      <ImageGalleryItem />
     </List>
   );
 };

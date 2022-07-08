@@ -1,14 +1,15 @@
 import React from 'react';
 import { GalleryItem, Image } from './ImageGalleryItem.styled';
+import { useContext } from 'react';
+import ctx from '../Context/authContext';
 
-const ImageGalleryItem = ({
-  images,
-  onImageClickChooseId,
-  onImageClickOpenModal,
-}) => {
+const ImageGalleryItem = () => {
+  const { getIdOfChooseImage, toggleModal, images } = useContext(ctx);
+  console.log(images);
+
   const handleImageClick = idOfChooseImg => {
-    onImageClickChooseId(idOfChooseImg);
-    onImageClickOpenModal();
+    getIdOfChooseImage(idOfChooseImg);
+    toggleModal();
   };
 
   return (

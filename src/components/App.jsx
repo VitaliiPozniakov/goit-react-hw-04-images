@@ -8,6 +8,7 @@ import Modal from './Modal';
 import ModalContent from './ModalContent';
 import { BtnLoadMore } from './App.styled';
 import Loader from './Loader';
+import authContext from '../components/Context/authContext';
 
 export default function App() {
   const [query, setQuery] = useState('');
@@ -36,6 +37,7 @@ export default function App() {
 
       if (page === 1) {
         setImages(imagesArray);
+        setError(null);
         setTotalImages(dataFromBackend.totalHits);
         return;
       }
@@ -75,16 +77,10 @@ export default function App() {
   };
 
   return (
-    <div>
+    <authContext.Provider value={{ getIdOfChooseImage, toggleModal, images }}>
       {error && <h1>Ups, something go wrong (: Please, try again...</h1>}
       <Searchbar onSubmitProp={getSearchRequest} />
-      {images && (
-        <ImageGallery
-          images={images}
-          onImageClickChooseId={getIdOfChooseImage}
-          onImageClickOpenModal={toggleModal}
-        />
-      )}
+      {images && <ImageGallery />}
       {isLoading && <Loader />}
       {images && images.length < totalImages && !isLoading && (
         <BtnLoadMore type="button" onClick={handleBtnLoadMore}>
@@ -97,6 +93,6 @@ export default function App() {
         </Modal>
       )}
       <ToastContainer position="top-right" autoClose={3000} />
-    </div>
+    </authContext.Provider>
   );
 }
