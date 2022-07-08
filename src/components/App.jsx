@@ -52,7 +52,7 @@ export default function App() {
       setIsLoading(prevIsLoading => !prevIsLoading);
     } catch (err) {
       console.log(error);
-      setError(err);
+      setError(err.message);
     }
   }, [query, page, setImages, setTotalImages, setIsLoading, setError, error]);
 
