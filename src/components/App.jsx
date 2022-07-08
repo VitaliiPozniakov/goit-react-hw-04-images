@@ -1,6 +1,3 @@
-
-
-
 import { useState, useEffect } from 'react';
 import Searchbar from './Searchbar';
 import { fetchImages } from 'services/api';
